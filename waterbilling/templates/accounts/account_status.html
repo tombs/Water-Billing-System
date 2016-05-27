@@ -1,0 +1,37 @@
+<!--
+      <div class="btn-group">
+        <button type="button" class="btn" id="account_status">{{account.status}}</button>
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#" id="set_status_delinquent">Delinquent</a></li>
+          <li><a href="#" id="set_status_missed">Missed Payment</a></li>
+          <li class="divider"></li>
+          <li><a href="#" id="set_status_default">Default</a></li>
+        </ul>
+      </div>
+ --->   
+
+    <!-- Single button -->
+<div class="btn-group">
+  <button type="button" id="account_status" class="btn dropdown-toggle
+    {% if account.status == 'disconnected' %} btn-danger" data-toggle="dropdown" >{{account.status}}
+    {% elif account.status == 'active' %} btn-success" data-toggle="dropdown" >{{account.status}}
+    {% elif account.status == 'inactive' %} btn-warning" data-toggle="dropdown" >{{account.status}}
+    {% elif account.status == 'for disconnection' %} btn-warning" data-toggle="dropdown" >{{account.status}}
+    {% else %} btn-default" data-toggle="dropdown" >Default
+    {% endif %}
+    
+   <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#" id="set_status_active">Active</a></li>
+    <li><a href="#" id="set_status_inactive">Inactive</a></li>
+    <li class="divider"></li>
+    <li><a href="#" id="set_status_for_disconnection">For Disconnection</a></li>
+    <li class="divider"></li>
+    <li><a href="#" id="set_status_disconnected">Disconnected</a></li>
+  </ul>
+</div>

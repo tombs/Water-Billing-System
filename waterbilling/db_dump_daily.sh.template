@@ -1,0 +1,21 @@
+#!/bin/sh
+NOW=$(date +"%Y-%m-%d")
+dump_file="/home/wbs/wbs_dbdumps/wbs_end-of-day_backup_$NOW.sql.gz"
+pgdump_command="/usr/bin/pg_dump"
+pg_user=""
+pg_db=""
+
+$pgdump_command -U $pg_user -h localhost $pg_db | gzip -9 > $dump_file
+
+emails_to="recipient1@woohoow.com,recipient2@woohoow.com"
+email_from="noreply@woohoow.com"
+emails_me="recipient3@woohoow.com"
+subject="Water Billing: Database Backup --> $NOW"
+message="Water Billing: Database Backup --> $NOW" 
+server="smtp.gmail.com:587"
+user="noreply@woohoow.com"
+password=""
+option="tls=yes"
+
+sendemail -f $email_from -t "$emails_to" -u "$subject" -m "$message"  -s $server -xu $user -xp $password -o $option
+

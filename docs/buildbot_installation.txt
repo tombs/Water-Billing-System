@@ -1,0 +1,349 @@
+BuildBot - How to Install and Set up
+
+
+
+PROCEDURE
+
+Install Pre-requirements
+	sudo <apt-get/brew>  install apache2 python-pip python-virtualenv python3 git
+
+		Note: Python 3 may not be needed.
+
+Create A User for Git
+
+root@server:~# useradd -m -s /bin/bash git
+root@server:~# usermod -G git courser
+Note: See on your specific system (Mac, Unix, Linux) how to create a user
+
+Create A Git Repository
+
+sudo su - git
+
+$ mkdir newrepo.git
+$ cd newrepo.git
+$ git init --bare
+
+
+Clone The Git Repository On Your Local Machine
+ 
+	> mkdir test
+	> cd test
+	> git clone git@192.168.5.101:~/newrepo.git
+	> cd newrepo
+	> touch README
+	> git add README
+	> git commit -m "initial commit"
+	> git push origin master
+
+Add The BuildBot Hook to Your Git Respository
+	> nano /Users/git/newrepo.git/hooks/post-receive
+	
+	Paste the following (Edit to match your system):
+
+#!/bin/bash 
+	while read oldrev newrev refname 
+
+do 
+	echo $oldrev $newrev $refname | /usr/bin/python /usr/share/buildbot/contrib/git_buildbot.py --repository file:///Users/git/repos/django-sample-project.git --master 192.168.5.101:9989 
+done
+ 
+
+HACK:
+
+Get contrib directory from the buildbot repository. -->  https://github.com/buildbot/buildbot
+	> git clone https://github.com/buildbot/buildbot
+
+Copy contrib directory to /usr/share/buildbot/
+	> scp -r contrib user@local:~/
+	> mkdir buildbot
+	>  cp -av contrib /usr/share/buildbot/
+
+
+
+
+Create A User for Buildbot
+
+
+	root@server:~# useradd -m -s /bin/bash buildbot 
+	root@server:~# usermod -G buildbot courser
+
+Note: See on your specific system (Mac, Unix, Linux) how to create a user
+	
+Set Up A BuildBot Master 
+ 
+	>  sudo su - buildbot					# go to buildbot user
+	> virtualenv sandbox                                       # create a virtualenv
+	> source sandbox/bin/activate                         # activate virtualenv
+	> pip install buildbot						# install buildbot
+	> pip install django						# install django
+	> pip install pyopenssl                                     # install openssl for Python
+	> buildbot create-master master          # create a buildbot master
+	> cd master
+	> cp master.cfg.sample master.cfg
+
+Set Up a BuildBot Slave
+
+	> virtualenv slavebox                                 # create a virtualenv for slave
+	> pip install buildbot-slave				# install buildbot-slave
+	> pip install pyopenssl
+ 	> buildslave create-slave slave localhost:9989 example-slave pass       #create the slave, 
+															#syntax
+															#buildslave create-slave <basedir> <master-addr/port> <name> <password>
+	
+
+
+
+
+
+
+Use the following config   (master.cfg).  Tweak as necessary.
+
+##################################################
+#######   START OF CONFIG
+##################################################
+
+# -*- python -*-
+# ex: set syntax=python:
+
+# This is the master configuration file for the django-simple example:
+# https://github.com/danirus/buildbot-sample-conf/tree/master/django-simple
+
+# It must be installed as 'master.cfg' in your buildmaster's base directory.
+
+from buildbot.process.properties import Property
+
+# 'repos' is a python dictionary with repository data. Each key at the top 
+# refers to each of the software bundles to build under this configuration. 
+# Each inner dictionary contains the URL to the repository and the branch 
+# from which to get the changes.
+
+repos = {
+    'webproject': { 
+        'url': '/Users/git/newrepo.git/',
+        'branch': 'master'
+    },
+}
+
+# This is the dictionary that the buildmaster pays attention to.
+c = BuildmasterConfig = {}
+
+
+####### BUILDSLAVES
+
+# The 'slaves' list defines the set of recognized buildslaves. Each element is
+# a BuildSlave object, specifying a unique slave name and password.  The same
+# slave name and password must be configured on the slave.
+from buildbot.buildslave import BuildSlave
+c['slaves'] = [
+    BuildSlave("example-slave", "pass"),
+    ]
+
+# 'slavePortnum' defines the TCP port to listen on for connections from slaves.
+# This must match the value configured into the buildslaves (with their
+# --master option)
+c['slavePortnum'] = 9989
+
+####### CHANGESOURCES
+
+# the 'change_source' setting tells the buildmaster how it should find out
+# about source code changes.
+
+from buildbot.changes.pb import PBChangeSource
+c['change_source'] = [
+    PBChangeSource(),
+]
+
+####### SCHEDULERS
+
+# Configure the Schedulers, which decide how to react to incoming changes.
+# In this case there are 5 schedulers and 2 filters:
+#  * A scheduler and a filter for the web project
+#  * A scheduler and a filter for the web app
+#  * 3 special schedulers that will trigger each web project builder
+
+from buildbot.schedulers.basic import SingleBranchScheduler
+from buildbot.schedulers.forcesched import ForceScheduler
+
+webproject_sch = SingleBranchScheduler(
+    name='webproject-sch',
+    branch=repos['webproject']['branch'],
+    builderNames=['webproject-py27dj14', 
+                  'webproject-py27dj15', 
+                  'webproject-py32dj15'],
+    treeStableTimer=None)
+
+c['schedulers'] = [webproject_sch] 
+
+c['schedulers'].append(ForceScheduler(
+                            name="force",
+                            builderNames=["webproject-py27dj14"]))
+####### BUILDERS
+
+# The 'builders' list defines the Builders, which tell Buildbot how to perform 
+# a build. What steps, and which slaves can execute them.  Note that any 
+# particular build will only take place on one slave.
+
+from buildbot.config import BuilderConfig
+from buildbot.process.factory import BuildFactory
+from buildbot.steps.shell import ShellCommand
+from buildbot.steps.source.git import Git
+
+webproject_steps = [
+    ShellCommand(name='requirements', 
+                 description='installing requirements',
+                 descriptionDone='installed',
+                 command=['pip', 'install', '-r', 'requirements.pip'],
+                 haltOnFailure=True),
+    ShellCommand(name='tests', 
+                 description='testing',
+                 descriptionDone='tested',
+                 command=['coverage',
+                          'run',
+                          'manage.py', 
+                          'test', 
+                          'polls',
+                          '--settings=mysite.test_settings'],
+                 haltOnFailure=True),
+    ShellCommand(name='coverage',
+                 description='creating coverage report',
+                 descriptionDone='coverage',
+                 command=['coverage',
+                          'report',
+                          '--include=polls/*',
+                          '--omit=polls/tests/*'],
+                 haltOnFailure=True),
+]
+webproject_factory = BuildFactory(webproject_steps)
+
+c['builders'] = [
+    # django-sample-project
+    BuilderConfig(name='webproject-py27dj14', 
+                  slavename='py27dj14', 
+                  factory=webproject_factory),
+    BuilderConfig(name='webproject-py27dj15', 
+                  slavename='py27dj15', 
+                  factory=webproject_factory),
+    BuilderConfig(name='webproject-py32dj15', 
+                  slavename='py32dj15', 
+                  factory=webproject_factory),
+]
+
+####### STATUS TARGETS
+
+# 'status' is a list of Status Targets. The results of each build will be
+# pushed to these targets. buildbot/status/*.py has a variety to choose from,
+# including web pages, email senders, and IRC bots.
+
+c['status'] = []
+
+from buildbot.status import html
+from buildbot.status.web import authz, auth
+authz_cfg=authz.Authz( 
+   # change any of these to True to enable; see the manual for more
+    # options
+    auth=auth.BasicAuth([("pyflakes","pyflakes")]),
+    gracefulShutdown = False,
+    forceBuild = True, # use this to test your slave once it is set up
+    forceAllBuilds = False,
+    pingBuilder = False,
+    stopBuild = False,
+    stopAllBuilds = False,
+    cancelPendingBuild = False,
+)   
+
+# Mail Notifier
+from buildbot.status.mail import MailNotifier
+
+smtp_kwargs = { 
+    'relayhost': 'smtp.gmail.com', 
+    'smtpPort': 587, 
+    'useTls': True,
+    'smtpUser': 'repos@woohoow.com', 
+    'smtpPassword': ''
+}
+
+c['status'] = [
+    # web interface with github notification entry point active 
+    html.WebStatus(http_port=8010, authz=authz_cfg)
+
+    # send email to developers whose changes were included in the build
+    #MailNotifier(fromaddr='buildbot@example.com', lookup='example.com',
+    #             extraRecipients=['admin@example.com'],
+    #             **smtp_kwargs),
+]
+
+mn = MailNotifier(fromaddr="buildbot@woohoow.com", lookup="woohoow.com", 
+                extraRecipients=['edwin.tumbaga@woohoow.com'], 
+                sendToInterestedUsers=False,
+                **smtp_kwargs)
+c['status'].append(mn)
+
+####### PROJECT IDENTITY
+
+# the 'title' string will appear at the top of this buildbot
+# installation's html.WebStatus home page (linked to the
+# 'titleURL') and is embedded in the title of the waterfall HTML page.
+
+c['title'] = "Buildbot-CI of Webapps"
+c['titleURL'] = "https://github.com/danirus/buildbot-sample-conf"
+
+# the 'buildbotURL' string should point to the location where the buildbot's
+# internal web server (usually the html.WebStatus page) is visible. This
+# typically uses the port number set in the Waterfall 'status' entry, but
+# with an externally-visible host name which the buildbot cannot figure out
+# without some help.
+
+c['buildbotURL'] = "http://localhost:8010/"
+
+####### DB URL
+
+# This specifies what database buildbot uses to store change and scheduler
+# state.  You can leave this at its default for all but the largest
+# installations.
+c['db_url'] = "sqlite:///state.sqlite"
+
+
+##################################################
+#######   END OF CONFIG
+##################################################
+
+
+
+
+
+
+Build Procedure Pseudo Code
+
+create a user for git
+create a git repository
+download buildbot repository (you will need the contrib directory for the hook scripts) - https://github.com/buildbot/buildbot/tree/master/master
+add buildbot hook to repository (git)
+change permission of post-receive hook, make sure it is executable
+
+
+create a user for buildbot
+log in as buildbot user
+create a virtual environment for the master build
+
+
+create a master build
+copy master configuration file
+adjust master config settings to use repository details
+run master build
+create a slave build
+copy slave configuration file
+install pyopenssl on buildbot (master) environment
+
+
+
+
+
+Links
+
+http://danir.us/2013/may/27/continuous-integration-web-apps-buildbot/#!prettyPhoto
+https://github.com/danirus/buildbot-sample-conf
+http://trac.buildbot.net/wiki/DownloadInstall
+http://docs.buildbot.net/current/tutorial/fiveminutes.html
+http://buildmonkey.wordpress.com/2009/02/27/continious-integration-with-buildbot-and-git/
+https://github.com/danirus/django-sample-app/
+https://github.com/buildbot/buildbot

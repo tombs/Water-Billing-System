@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+from django.conf.urls import patterns, url
+from .views import (AccountListView, AccountDetailView, 
+		AccountWithBalanceListPrintView, 
+		AccountDisconnectedListView, 
+        AccountCollectionListView, AccountDatatablesView, AccountWithBalanceDatatablesView,
+        AccountSetStatusActiveView, AccountSetStatusInactiveView, AccountSetStatusDisconnectedView,
+        AccountDisconnectedDatatablesView, AccountDisconnectedListView,
+        AccountWithBalanceCsvView, AccountCollectionCsvView,
+        AccountSetStatusForDisconnectionView,
+        NoteAddView)
+
+urlpatterns = patterns('',
+    url(r'^$', view=AccountListView.as_view(template_name='accounts/account_list.html'),name='account_list'),
+    url(r'^withbalance/$', view=AccountListView.as_view(template_name='accounts/account_with_balance_list.html'),name='accountwithbal_list'),
+    url(r'^disconnected/$', view=AccountListView.as_view(template_name='accounts/account_disconnected.html'),name='accountdisconnected'),
+    url(r'^withbalance/print/$', view=AccountWithBalanceListPrintView.as_view(template_name='accounts/account_with_balance_list_print.html'),name='accountwithbal_print_list'),
+    url(r'^withbalance/csv/$', view=AccountWithBalanceCsvView.as_view(),name='accountwithbal_csv'),    
+    #url(r'^disconnected/$', view=AccountDisconnectedListView.as_view(template_name='accounts/account_disconnected_list.html'),name='accountdisconnected_list'),
+    url(r'^disconnected/datatable$', view=AccountDisconnectedDatatablesView.as_view(),name='account_disconnected_datatable'),    
+    url(r'^(?P<pk>\d+)/$', view=AccountDetailView.as_view(template_name='accounts/account_detail.html'),name='account_detail'),
+	url(r'^collection/print/$', view=AccountCollectionListView.as_view(template_name='accounts/account_collection_list.html'),name='account_collection'),
+    url(r'^collection/csv/$', view=AccountCollectionCsvView.as_view(),name='account_collection_csv'),
+    url(r'^datatable$', AccountDatatablesView.as_view(), name='account_list_datatable'),
+    url(r'^withbalance/datatable$', AccountWithBalanceDatatablesView.as_view(), name='account_withbalance_datatable'),
+    url(r'^setactive/(?P<pk>\d+)/$', view=AccountSetStatusActiveView.as_view(),name='account_set_status_active'),
+    url(r'^setinactive/(?P<pk>\d+)/$', view=AccountSetStatusInactiveView.as_view(),name='account_set_status_inactive'),
+    url(r'^setdisconnected/(?P<pk>\d+)/$', view=AccountSetStatusDisconnectedView.as_view(),name='account_set_status_disconnected'),
+    url(r'^setfordisconnection/(?P<pk>\d+)/$', view=AccountSetStatusForDisconnectionView.as_view(),name='account_set_status_for_disconnection'),
+    url(r'^addnewnote/$', view=NoteAddView.as_view(),name='new_accountnote'),	
+    )

@@ -1,0 +1,21 @@
+#!/bin/sh
+envi="/home/wbs/envs/waterbilling"
+app_dir="/home/wbs/waterbilling/waterbilling"
+wbs_user=""
+wbs_pswd=""
+
+$envi/bin/python $app_dir/manage.py generate --type bill --business-date now --file-prefix BILL --monitor --username $wbs_user --password $wbs_pswd  2>&1 | tee $app_dir/logs/test.log  &
+
+NOW=$(date +"%Y-%m-%d")
+emails_to="recipient1@woohoow.com,recipient2@woohoow.com"
+email_from="noreply@woohoow.com"
+emails_me="recipient3@woohoow.com"
+subject="Water Billing: Bills Compiled PDF Monitor Now Running"
+message="Water Billing: Bills Compiled PDF Monitor Now Running" 
+server="smtp.gmail.com:587"
+user="noreply@woohoow.com"
+password=""
+option="tls=yes"
+
+sendemail -f $email_from -t "$emails_to" -u "$subject" -m "$message"  -s $server -xu $user -xp $password -o $option
+

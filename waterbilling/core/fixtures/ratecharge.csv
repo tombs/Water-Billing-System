@@ -1,0 +1,10 @@
+id,rate_id,type,sequence_number,read_value_start,read_value_end,amount
+1,1,Constant,1,0,10,156
+2,1,Per Unit,2,10,20,16.4
+3,1,Per Unit,3,20,30,17.2
+4,1,Per Unit,4,30,40,18.8
+5,1,Per Unit,5,40,50,21.9
+6,1,Per Unit,6,50,99999999,25.1
+7,2,Constant,1,0,25,780
+8,2,Per Unit,2,25,1000,34.4
+9,2,Per Unit,3,1000,99999999,43.7

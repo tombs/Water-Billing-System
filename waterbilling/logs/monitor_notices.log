@@ -1,0 +1,1231 @@
+DeprecationWarning: INTERCEPT_REDIRECTS is deprecated. Please use the DISABLE_PANELS config in the DEBUG_TOOLBAR_CONFIG setting. [settings.py:134]
+
+ac FileRepoAdmin c <class 'core.models.FileRepo'>
+ac PenaltyAdmin c <class 'core.models.Penalty'>
+ac FinancialTransactionAdmin c <class 'core.models.FinancialTransaction'>
+ac ConfigAdmin c <class 'core.models.Config'>
+ac NoticeAdmin c <class 'core.models.Notice'>
+ac RateAdmin c <class 'core.models.Rate'>
+ac AddressAdmin c <class 'core.models.Address'>
+ac CustomerAdmin c <class 'core.models.Customer'>
+ac BillingScheduleAdmin c <class 'core.models.BillingSchedule'>
+ac AccountAdmin c <class 'core.models.Account'>
+ac TaskAdmin c <class 'core.models.Task'>
+ac BillAdmin c <class 'core.models.Bill'>
+ac ReadChargeAdmin c <class 'core.models.ReadCharge'>
+ac PostedPaymentAdmin c <class 'core.models.PostedPayment'>
+ac AccountMeterAdmin c <class 'core.models.AccountMeter'>
+ac CoreModelAdmin c <class 'core.models.CoreModel'>
+error The model CoreModel is abstract, so it cannot be registered with admin.
+ac MeterAdmin c <class 'core.models.Meter'>
+ac MeterReadAdmin c <class 'core.models.MeterRead'>
+ac AccountTypeAdmin c <class 'core.models.AccountType'>
+ac PaymentAdmin c <class 'core.models.Payment'>
+ac AdjustmentAdmin c <class 'core.models.Adjustment'>
+ac RateChargeAdmin c <class 'core.models.RateCharge'>
+ac BillDeletedAdmin c <class 'core.models.BillDeleted'>
+ac AccountNoteAdmin c <class 'core.models.AccountNote'>
+options {'username': 'admin', 'business_date': 'now', 'monitor': True, 'settings': None, 'pythonpath': None, 'verbosity': '1', 'traceback': None, 'file_prefix': 'NOTICE', 'output_dir': '', 'config': None, 'pdf': False, 'password': 'captainbuggy', 'type': 'notice', 'create': False}
+business_date:  now
+generating notice {'username': 'admin', 'monitor': True, 'settings': None, 'pythonpath': None, 'verbosity': '1', 'traceback': None, 'file_prefix': 'NOTICE', 'output_dir': '', 'config': None, 'pdf': False, 'password': 'captainbuggy', 'create': False}
+period:  40
+business_date:  2016-05-27
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0 tasks found!
+sleeping for 60 seconds.. 
+checking for notice task
+0

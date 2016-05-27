@@ -1,0 +1,9 @@
+python manage.py dataloader --customer core/fixtures/customer.csv 
+python manage.py dataloader --address core/fixtures/address.csv 
+python manage.py dataloader --rate core/fixtures/rate.csv 
+python manage.py dataloader --accounttype core/fixtures/accounttype.csv
+python manage.py dataloader --meter core/fixtures/meter.csv 
+python manage.py dataloader --ratecharge core/fixtures/ratecharge.csv 
+python manage.py dataloader --billingschedule core/fixtures/billingschedule.csv
+python manage.py dataloader --account core/fixtures/account.csv
+python manage.py dataloader --meterread core/fixtures/meterread.csv

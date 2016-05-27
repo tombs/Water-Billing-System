@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+    <div class="row-fluid sortable">		
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon icon-darkgray icon-contacts"></i> Reconnection Page for Disconnected Accounts</h2>
+						<div class="box-icon">
+							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<table id="account-disconnected-table" class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							<tr>
+								<th class="hidden">Account Id</th>
+								<th>Customer</th>
+								<th>Address</th>
+								<th>Balance</th>
+								<th>Status</th>
+								<th>Remarks</th>
+								<th>Action</th>
+							</tr>
+						  </thead>   
+						  <tbody>
+						  {# object_list is replaced by account_list as defined in view.context_object_name #}
+        	
+						  {% for account in account_list %}	
+							<tr>
+								<td><a href="/accounts/{{account.pk}}">{{ account.customer }}</a></td>
+								<td>{{ account.address }}</td>
+								<td><span class="pull-right">{{ account.balance | floatformat:2 | intcomma}}</span></td>
+								<td>{% if account.status == 'disconnected' %}
+									<span class="label label-important">{{ account.status }}</span>
+									{% else %}
+									{{ account.status }}
+									{% endif %}
+								</td>
+								<td>{{ account.remarks }}</td>
+								<td><button class="btn btn-danger reconnect-btn">Reconnect</button></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					</div>
+				</div>
+	</div>
+
+
+	<div class="modal hide fade" id="myReconnectModal">
+      <form id="reconnectForm" method="POST">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>Reconnect for Account # <span id="myaccid"></span></h3>
+			</div>
+
+      {# FIXME: Redo this via django form #}
+			<div class="modal-body">
+            {% csrf_token %}
+            <label>Confirm Reconnection Fee Type</label>
+            <div class="btn-group" data-toggle="buttons-radio" id="set-remarks">
+			  <button type="button" class="btn btn-default" id="set-delinquent-fee" value="2000">Delinquent</button>
+			  <button type="button" class="btn btn-default" id="set-missed-fee" value="200">Missed</button>
+			  <button type="button" class="btn btn-default" id="set-none-fee" value="0">None</button>
+			</div>
+			<label>Reconnection Fee</label>
+			<input type="text" id="reconnection-fee"></input>
+  			<input id="id_account" name="account" type="hidden"/>
+
+      </div>
+
+			<div class="modal-footer">
+				<button class="btn btn-large btn-warning" data-dismiss="modal"><i class="icon icon-white icon-cross"></i> Cancel
+					</button>
+				<button id="btnConfirmReconnection" class="btn btn-large btn-success"><i class="icon icon-white icon-link"></i> Confirm Reconnection 
+              		</button>
+			</div>
+      </form>
+		</div> <!-- close myPaymentModal -->
+
+		<script type="text/javascript">
+		function myFunction(obj)
+		{
+			console.log("obj!! : "+obj.parent().siblings()[0].innerText);
+			
+			//e.preventDefault();
+			console.log('reconnect clicked');
+			var myid = obj.parent().siblings()[0].innerText;
+			console.log('myid',myid);
+			//console.log('Account id is ', $(this).parent().siblings()[0].('a[href$*="/accounts/"]');
+			$('#myaccid span').remove();
+			$('#myaccid').append('<span>'+myid+'</span>');
+			$('#id_account').val(myid);
+			$('#myReconnectModal').modal('show');
+		}
+		</script>
+
+{% endblock %}
+
+{% block jsfooter %}
+	<script type="text/javascript">
+		$(function(){
+	//http://stackoverflow.com/questions/13231758/jquery-datatables-adding-extra-column
+	//http://datatables.net/release-datatables/examples/ajax/null_data_source.html
+    //http://datatables.net/release-datatables/examples/basic_init/table_sorting.html
+    $('#account-disconnected-table').dataTable({
+        "aaSorting": [[2,'asc'],	[1,'asc']],
+        "bPaginate": true,
+        "sPaginationType": "bootstrap",
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": Django.url('account_disconnected_datatable'),
+        "aLengthMenu": [
+            [10, 25, 50, 100, 500, 9999],
+            [10, 25, 50, 100, 500, "All"]
+        ], 
+        "aoColumnDefs": [
+        		{
+		            "aTargets": [ 0 ],
+		            "sClass": "hidden"
+			    },
+			    {
+		            "aTargets": [ 1 ],
+		            "mData": null,
+		            "mRender": function (data, type, full) {
+		        			return '<a href="/accounts/' + full[0] + '">' + full[1] + '</a>';
+				    	}
+			    },
+			    {
+		            "aTargets": [ 3 ],
+		            "mRender": function (data, type, full) {
+		        			return '<span class="pull-right">' + $.number( data , 2) + '</span>';
+				    	}
+			    },
+			    {
+		            "aTargets": [ 4 ],
+		            "mRender": function (data, type, full) {
+		            		if (data === 'disconnected') {
+		            			var myclass="label-important";
+		            		}
+		            		else if (data === 'inactive') {
+		            			var myclass="label-warning";
+		            		}
+		            		else if (data === 'active') {
+		            			var myclass="label-success";
+		            		}
+		        			return '<span class="label ' + myclass + '"> ' + data + '</span>';
+				    	}
+			    },
+				{
+				        "aTargets":[6],
+				        "mData": null,
+						"mRender": function (data, type, full) {
+						            return '<td><button class="btn btn-danger reconnect-btn" onclick="myFunction($(this)); console.log(\'reconnect clicked\');  var myid = $(this) ;">Reconnect</button></td>';
+									
+						        }
+				    }	
+										 
+				        	]
+    	}).yadcf(
+			[
+			    {column_number : 2, data: ["PHASE 1","PHASE 1B", "PHASE 2", "PHASE 3", "PHASE 4", "PHASE 5", "PARKLANE"],filter_match_mode: 'exact'},]
+		)	;
+	});
+	// $('#account-list-table').dataTable().fnReloadAjax( Django.url('account_list_datatable') );
+	</script>	
+{% endblock%}
+

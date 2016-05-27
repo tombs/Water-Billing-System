@@ -1,0 +1,19 @@
+#!/bin/sh
+envi="/home/wbs/envs/waterbilling"
+app_dir="/home/wbs/waterbilling/waterbilling"
+
+$envi/bin/python $app_dir/manage.py dataloader --business-date now --active-period now
+
+NOW=$(date +"%Y-%m-%d")
+emails_to="recipient1@woohoow.com,recipient2@woohoow.com"
+email_from="noreply@woohoow.com"
+emails_me="recipient3@woohoow.com"
+subject="Water Billing: New Business Date Set --> $NOW"
+message="Water Billing: New Business Date Set --> $NOW" 
+server="smtp.gmail.com:587"
+user="noreply@woohoow.com"
+password=""
+option="tls=yes"
+
+sendemail -f $email_from -t "$emails_to" -u "$subject" -m "$message"  -s $server -xu $user -xp $password -o $option
+

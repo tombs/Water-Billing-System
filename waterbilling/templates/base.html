@@ -1,0 +1,517 @@
+{% load js staticfiles %}
+{%  django_js %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>{% block title %}waterbilling{% endblock title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- The styles -->
+  <link href="{% static 'css/bootstrap-cerulean.css' %}" rel="stylesheet">
+  <style type="text/css">
+    body {
+    padding-bottom: 40px;
+    }
+    .sidebar-nav {
+    padding: 9px 0;
+    }
+  </style>
+  <link href="{% static 'css/style.css' %}"  rel="stylesheet">
+  <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/charisma-app.css' %}" rel="stylesheet">
+  <link href="{% static 'css/jquery-ui-1.8.21.custom.css' %}" rel="stylesheet">
+  <link href="{% static 'css/fullcalendar.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/fullcalendar.print.css' %}" rel='stylesheet'  media='print'>
+  <link href="{% static 'css/chosen.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/uniform.default.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/colorbox.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/jquery.cleditor.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/jquery.noty.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/noty_theme_default.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/elfinder.min.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/elfinder.theme.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/jquery.iphone.toggle.css' %}" rel='stylesheet'>
+  <link href="{% static 'css/opa-icons.css' %}"rel='stylesheet'>
+  <!--link href="{% static 'css/uploadify.css' %}" rel='stylesheet'-->
+  <link rel="stylesheet" href="{% static 'css/jquery.fileupload.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.fileupload-ui.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.yadcf.css' %}">
+ 
+  <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  {% block extra_style %}{% endblock %}
+  <!-- The fav icon -->
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    
+</head>
+
+<body>
+  {% block topbar %}
+    <!-- topbar starts -->
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/"> <img alt="Logo" src="{% static 'img/logo20.png' %}" /> <span>WaterBilling</span></a>
+        
+        <!-- user dropdown starts -->
+        <div class="btn-group pull-right" >
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon icon-blue icon-user"></i><span class="hidden-phone"> {{user}}</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <!--li><a href="#">Profile</a></li>
+            <li class="divider"></li-->
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout <i class="icon-off"></i></a></li>
+            {% else %}
+            <li><a href="{% url 'django.contrib.auth.views.login' %}">Login <i class="icon-off"></i></a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <!-- user dropdown ends -->
+      </div>
+    </div>
+  </div>
+  <!-- topbar ends -->
+  {% endblock topbar %}
+    <div class="container-fluid">
+    <div class="row-fluid">
+      {% block leftmenu %}  
+      <!-- left menu starts -->
+      <div class="span2 main-menu-span">
+        <div class="well nav-collapse sidebar-nav">
+          <ul class="nav nav-tabs nav-stacked main-menu">
+            <li class="nav-header hidden-tablet"><i class="icon-calendar"></i> {{business_date}}</li>
+            <li class="nav-header hidden-tablet">Main</li>
+            <li><a class="ajax-link" href="/"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+            <li><a class="ajax-link" href="/accounts"><i class="icon icon-darkgray icon-contacts"></i><span class="hidden-tablet"> Accounts</span></a></li>
+            <li><a class="ajax-link" href="/meters"><i class="icon icon-darkgray icon-clipboard"></i><span class="hidden-tablet"> Meter Reads</span></a></li>
+            <li class="nav-header hidden-tablet">Reports</li>
+            <li><a class="ajax-link" href="/bills"><i class="icon-list-alt"></i><span class="hidden-tablet"> Bills</span></a></li>
+            <li><a class="ajax-link" href="/accounts/withbalance"><i class="icon-list-alt"></i><span class="hidden-tablet"> For Disconnection List</span></a></li>
+            <li><a class="ajax-link" href="/accounts/disconnected"><i class="icon-list-alt"></i><span class="hidden-tablet"> For Reconnection List</span></a></li>
+            <li><a class="ajax-link" href="/accounts/collection/print"><i class="icon icon-document"></i><span class="hidden-tablet"> Collection Report</span></a></li>
+            <li><a class="ajax-link" href="/accounts/withbalance/print"><i class="icon icon-document"></i><span class="hidden-tablet"> Uncollected Bills Report</span></a></li>
+            <li><a class="ajax-link" href="/tasks/"><i class="icon-list-alt"></i><span class="hidden-tablet"> Tasks</span></a></li>            
+            
+            </ul>
+          </div><!--/.well -->
+      </div><!--/span-->
+      <!-- left menu ends -->
+      {% endblock leftmenu %}
+      
+      <noscript>
+        <div class="alert alert-block span10">
+          <h4 class="alert-heading">Warning!</h4>
+          <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+        </div>
+      </noscript>
+      
+      <div id="content" class="span10">
+      <div class="alert" id="alert_template" style="display: none;">
+        <!--button type="button" class="close" data-dismiss="alert">×</button-->
+        <button type="button" class="close" id="alert_close">×</button>
+      </div>
+      <!-- content starts -->
+      
+      {% block breadcrumb %}
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#"><i class="icon-calendar"></i> Active Billing Period &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{period}}
+            </a>       
+         </li><br/>
+         <li>
+            <a href="#"><i class="icon-calendar"></i> Reading Period Being Billed &nbsp;&nbsp;&nbsp;&nbsp; : {{usage}}
+            </a>       
+         </li>
+        </ul>
+      </div>
+      {% endblock breadcrumb %}
+      {% block content %}    
+        
+
+<!--------- Dashboard -->
+        <div class="row-fluid sortable">
+        <!--div class="box span4">
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon icon-blue icon-clock"></i> Stats and Scheds</h2>
+            <div class="box-icon">
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+            </div>
+          </div>
+          <div class="box-content">
+            <ul class="dashboard-list">
+              <li>
+                <a href="#"><span class="green">72 %</span> Meters Read: 72 out of 100
+                </a>
+              </li>
+              </ul>
+                    <div class="row-fluid">
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Upcoming Activity</th>
+                    </tr>
+                </thead>   
+                <tbody>
+                <tr>
+                  <td>Meter Reading in
+                    <span class="label label-success">7</span>
+                    days
+                  </td>                                       
+                </tr>
+                <tr>
+                  <td>Generate Bills in
+                    <span class="label label-important">12</span>
+                    days
+                  </td>                                       
+                </tr>                                   
+                </tbody>
+             </table>                    
+           </div>                   
+                  </div>
+        </div><!--/span-->
+        
+        <!--div class="box span4">
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon icon-green icon-archive"></i> Collection History</h2>
+            <div class="box-icon">
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+            </div>
+          </div>
+          <div class="box-content">
+                    <div class="row-fluid">
+              <div class="control-group">
+                <label class="control-label" for="date01">Billing Period</label>
+                <div class="controls">
+                <input type="text" class="input datepicker" id="date01" value="10/01/13">
+                </div>
+              </div>
+
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Amount Billed</th>
+                    <th>Amount Collected</th>
+                    <th>Performance</th>
+                    </tr>
+                </thead>   
+                <tbody>
+                <tr>
+                  <td>15000</td>
+                  <td>150</td>
+                  <td>1%</td>                                       
+                </tr>
+                </tbody>
+             </table> 
+                    </div>                   
+                  </div>
+        </div><!--/span-->
+        
+        <!--div class="box span4">
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon icon-red icon-alert"></i> Outstanding Accounts</h2>
+            <div class="box-icon">
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+            </div>
+          </div>
+          <div class="box-content">
+                    <div class="row-fluid">
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Account Name</th>
+                    <th>Amount Due</th>
+                    </tr>
+                </thead>   
+                <tbody>
+                <tr>
+                  <td>Tumbaga, Edwin</td>
+                  <td>25000</td>
+                  </tr>
+                <tr>
+                  <td>Reyes, Mayumi</td>
+                  <td>1500</td>
+                  </tr>
+                </tbody>
+             </table>
+             <div class="pagination pagination-centered">
+              <ul>
+              <li><a href="#">Prev</a></li>
+              <li class="active">
+                <a href="#">1</a>
+              </li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">Next</a></li>
+              </ul>
+             </div>   
+                    </div>                   
+                  </div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+
+<!--------- Reports -->
+    <div class="row-fluid">
+        <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2><i class="icon icon-orange icon-xls"></i> Reports</h2>
+        </div>
+        <div class="box-content">
+        <a class="well span2 top-block" href="/bills">
+          <span class="icon32 icon-darkgray icon-envelope-closed"></span>
+          <div>Billing Statements</div>
+        </a>
+        <a class="well span2 top-block" href="/accounts/withbalance">
+          <span class="icon32 icon-red icon-unlink"></span>
+          <div>Due for Disconnection List</div>
+        </a>
+        <a class="well span2 top-block" href="/accounts/disconnected">
+          <span class="icon32 icon-red icon-refresh"></span>
+          <div>For Reconnection List</div>
+        </a>
+        
+        <a class="well span2 top-block" href="/accounts/collection/print">
+          <span class="icon32 icon-blue icon-archive"></span>
+          <div>Collection Report</div>
+        </a>
+        <a class="well span2 top-block" href="/accounts/withbalance/print">
+          <span class="icon32 icon-green icon-document"></span>
+          <div>Uncollected Bills Report</div>
+        </a>
+        </div>
+      </div>
+    </div> <!-- end row-fluid -->
+
+<!--------- Charts -->
+<div class="row-fluid">
+        <div class="box span6">
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon-list-alt"></i> Uncollected Amount</h2>
+            </div>
+          <div class="box-content">
+              <div id="uncollected-piechart-flot" style="height:300px"></div>
+              <script type="text/javascript">
+              var uncollected = {{ uncollected|safe }}
+              var collected = {{ collected|safe }}
+              var flot_pie = {{ flot_pie|safe }}
+              var flot_stack = {{ flot_stack|safe }}
+              </script>
+              
+          </div>
+        </div>
+        <div class="box span6">
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon-list-alt"></i> Collection Per Phase</h2>
+            </div>
+          <div class="box-content">
+              <div id="collected-stackgraph-flot" style="height:300px;width:300px"></div>
+              
+          </div>
+        </div>
+</div><!-- end row-fluid-->
+
+<!--------- Actions -->
+    <div class="row-fluid">
+        <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2><i class="icon icon-blue icon-wrench"></i> Actions for Period {{ billing_period }}</h2>
+        </div>
+        <div class="box-content">
+        <a class="span3 btn btn-warning" id="btn-generatebills">Generate Bills
+        </a>
+        <a class="span3 btn btn-warning" id="btn-generatenotices">Generate Disconnection Notices
+        </a>
+          <a class="span3 btn btn-warning" id="btn-generatemasterlist">Generate Master List
+        </a>
+        <a class="well span3 top-block" href="#">
+          <div></div>
+        </a>
+        </div>
+      </div>
+    </div> <!-- end row-fluid -->
+
+
+
+      {% endblock content %}
+       
+          <!-- content ends -->
+      </div><!--/#content.span10-->
+        </div><!--/fluid-row-->
+        
+    
+    {% block footer %}
+    <hr>
+
+    <footer>
+      <p class="pull-left">&copy; Woohoow, Inc. 2013</p>
+      <p class="pull-right"></p>
+    </footer>
+    {% endblock footer %}
+    
+  </div><!--/.fluid-container-->
+
+  <!-- external javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <!-- jQuery -->
+  <!--script src="{% static 'js/jquery-1.7.2.min.js' %}"></script-->
+  <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-1.2.1.js' %}"></script>
+  <!-- jQuery UI -->
+  <!--script src="{% static 'js/jquery-ui-1.8.21.custom.min.js' %}"></script-->
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <!-- transition / effect library -->
+  <script src="{% static 'js/bootstrap-transition.js' %}"></script>
+  <!-- alert enhancer library -->
+  <script src="{% static 'js/bootstrap-alert.js' %}"></script>
+  <!-- modal / dialog library -->
+  <script src="{% static 'js/bootstrap-modal.js' %}"></script>
+  <!-- custom dropdown library -->
+  <script src="{% static 'js/bootstrap-dropdown.js' %}"></script>
+  <!-- scrolspy library -->
+  <script src="{% static 'js/bootstrap-scrollspy.js' %}"></script>
+  <!-- library for creating tabs -->
+  <script src="{% static 'js/bootstrap-tab.js' %}"></script>
+  <!-- library for advanced tooltip -->
+  <script src="{% static 'js/bootstrap-tooltip.js' %}"></script>
+  <!-- popover effect library -->
+  <script src="{% static 'js/bootstrap-popover.js' %}"></script>
+  <!-- button enhancer library -->
+  <script src="{% static 'js/bootstrap-button.js' %}"></script>
+  <!-- accordion library (optional, not used in demo) -->
+  <script src="{% static 'js/bootstrap-collapse.js' %}"></script>
+  <!-- carousel slideshow library (optional, not used in demo) -->
+  <script src="{% static 'js/bootstrap-carousel.js' %}"></script>
+  <!-- autocomplete library -->
+  <script src="{% static 'js/bootstrap-typeahead.js' %}"></script>
+  <!-- tour library -->
+  <script src="{% static 'js/bootstrap-tour.js' %}"></script>
+  <!-- library for cookie management -->
+  <script src="{% static 'js/jquery.cookie.js' %}"></script>
+  <!-- calander plugin -->
+  <script src="{% static 'js/fullcalendar.min.js' %}"></script>
+  <!-- data table plugin -->
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/jquery.dataTables.yadcf.js' %}"></script>
+  <script src="{% static 'js/dataTables.fnReloadAjax.js' %}"></script>
+
+  <!-- chart libraries start -->
+  <script src="{% static 'js/excanvas.js' %}"></script>
+  <script src="{% static 'js/jquery.flot.min.js' %}"></script>
+  <script src="{% static 'js/jquery.flot.pie.min.js' %}"></script>
+  <script src="{% static 'js/jquery.flot.stack.js' %}"></script>
+  <script src="{% static 'js/jquery.flot.resize.min.js' %}"></script>
+  <!-- chart libraries end -->
+
+  <!-- select or dropdown enhancer -->
+  <script src="{% static 'js/jquery.chosen.min.js' %}"></script>
+  <!-- checkbox, radio, and file input styler -->
+  <script src="{% static 'js/jquery.uniform.min.js' %}"></script>
+  <!-- plugin for gallery image view -->
+  <script src="{% static 'js/jquery.colorbox.min.js' %}"></script>
+  <!-- rich text editor library -->
+  <script src="{% static 'js/jquery.cleditor.min.js' %}"></script>
+  <!-- notification plugin -->
+  <script src="{% static 'js/jquery.noty.js' %}"></script>
+  <!-- file manager library -->
+  <script src="{% static 'js/jquery.elfinder.min.js' %}"></script>
+  <!-- star rating plugin -->
+  <script src="{% static 'js/jquery.raty.min.js' %}"></script>
+  <!-- for iOS style toggle switch -->
+  <script src="{% static 'js/jquery.iphone.toggle.js' %}"></script>
+  <!-- autogrowing textarea plugin -->
+  <script src="{% static 'js/jquery.autogrow-textarea.js' %}"></script>
+  <!-- multiple file upload plugin -->
+  <script src="{% static 'js/jquery.uploadify-3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'js/jquery.fileupload.js' %}"></script>
+  <!--script src="{% static 'js/jquery.fileupload-ui.js' %}"></script-->
+  <!-- history.js for cross-browser state change on ajax -->
+  <script src="{% static 'js/jquery.history.js' %}"></script>
+  <!-- number formatting -->
+  <script src="{% static 'js/jquery.number.min.js' %}"></script>
+  <!-- application script for Charisma demo -->
+  <script src="{% static 'js/charisma.js' %}"></script>
+  <script src="{% static 'js/wbs.js' %}"></script>
+
+  {% block jsfooter %}
+  <script src="{% static 'js/d3.js' %}"></script>
+  <script src="{% static 'js/flotr2.min.js' %}"></script> 
+  <script src="{% static 'js/wbs-chart.js' %}"></script>
+
+  {% endblock jsfooter %}  
+
+
+    <div class="modal hide fade" id="myProgressModal">
+      <form id="progressForm" method="POST">
+      <div class="modal-header">
+              <h3>Task in Progress</h3>
+              <div style="color:red; font-size:small">WARNING: Do not close your browser or computer while this task is ongoing.  </div>
+      </div>
+
+      {# FIXME: Redo this via django form #}
+      <div class="modal-body">
+
+        <div id="szlider">
+          <div id="szliderbar">
+         </div>
+         <div id="szazalek">
+         </div>
+        </div>
+
+      </div>
+             
+            {% csrf_token %}
+
+
+      <!--div class="modal-footer">
+        <button class="btn btn-large btn-warning" data-dismiss="modal"><i class="icon icon-white icon-cross"></i> Close
+          </button>
+      </div-->
+      </form>
+    </div> <!-- close myProgressModal -->
+
+    <div class="modal hide fade" id="myWaitModal">
+      <form id="progressForm" method="POST">
+      <div class="modal-header">
+              <h3>Task in Progress</h3>
+              <div style="color:red; font-size:small">WARNING: Do not close your browser or computer while this task is ongoing.  </div>
+      </div>
+
+      {# FIXME: Redo this via django form #}
+      <div class="modal-body">
+       <center><img alt="Logo" src="{% static 'img/waiting.gif' %}" width="100" height="100"  /></center>
+      </div>
+             
+            {% csrf_token %}
+
+
+      <!--div class="modal-footer">
+        <button class="btn btn-large btn-warning" data-dismiss="modal"><i class="icon icon-white icon-cross"></i> Close
+          </button>
+      </div-->
+      </form>
+    </div> <!-- close myProgressModal -->
+
+</body>
+</html>

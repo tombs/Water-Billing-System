@@ -1,0 +1,16 @@
+{% load humanize %}
+<table class="table table-condensed">
+    <tr><td>Bill Date: </td><td>{{ bill_detail.bill_date }}</td></tr>
+    <tr><td>Reading Period: </td><td>{{bill_detail.billing_schedule.reading_start_date}} TO {{bill_detail.billing_schedule.reading_end_date}}</td></tr>
+    <tr><td>Previous Reading: </td><td> {{bill_detail.meter_read.previous_reading | floatformat:2 | intcomma}}</td></tr>
+    <tr><td>Current Reading: </td><td>{{bill_detail.meter_read.current_reading | floatformat:2 | intcomma}}</td></tr>
+    <tr><td><h4>Last Usage: </h4></td><td><h4>{{bill_detail.meter_read.usage | floatformat:2 | intcomma}}</h4></td></tr>
+    <tr><td><h4>Total Usage For Period: </h4></td><td><h4>{{bill_detail.account.usage | floatformat:2 | intcomma}}</h4></td></tr>
+    <tr><td>Read Date: </td><td>{{bill_detail.meter_read.read_date}}</td></tr>
+    <tr><td>Previous Balance: </td><td>{{bill_detail.previous_balance| floatformat:2 | intcomma }}</td></tr>
+    <tr><td>Penalty Amount: </td><td>{{bill_detail.penalty_amount| floatformat:2 | intcomma }}</td></tr>
+    <tr><td>Reconnection Fee: </td><td>{{bill_detail.account.reconnection_fees| floatformat:2 | intcomma }}</td></tr>
+    <tr><td>Current Charge: </td><td>{{bill_detail.current_charge| floatformat:2 | intcomma }}</td></tr>
+    <tr><td><h4>Amount Due: </h4></td><td><h4>{{bill_detail.amount_due| floatformat:2 | intcomma }}</h4></td></tr>
+    <tr><td>Due Date: </td><td>{{bill_detail.due_date}}</td></tr>
+</table>

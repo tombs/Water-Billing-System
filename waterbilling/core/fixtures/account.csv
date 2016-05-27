@@ -1,0 +1,5 @@
+id,customer_id,address_id,account_type_id,meter_id
+1,1,1,1,1
+2,2,2,2,2
+3,1,2,1,3
+4,1,2,1,4

@@ -1,0 +1,89 @@
+{% extends "bills/base_bills.html" %}
+{% load humanize %}
+
+{% block topbar %}
+{% endblock topbar %}
+
+{% block leftmenu %}
+{% endblock leftmenu %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
+<table width="100%">
+    <tr>
+        <td style="padding:10px;">
+<!--------- Billing Statement Reports -->
+        <div class="box box-content">
+        <span class="span6">
+        <h2>Felizana Water System</h2>
+        <h5>FelizAna Estate Subd., Brgy. Pasong Buaya, Imus, Cavite<br/>
+          Tel No. (046) 484-4268</h5>
+        <div class="row-fluid">
+        {% include 'accounts/account_info.html' %}
+        </div> <!-- end row-fluid -->
+        </span>
+        <span class="span6">
+          <h3 align="right"> TRN # :     {{bill_detail.tracking_number}}</h3>
+        </span>
+        
+        <div class="row-fluid">          
+            <h3>Latest Bill Details</h3>
+            {% include 'bills/bill_info.html' %}
+            
+            <div>
+              <h3>Current Charge Details</h3>
+            </div>
+              
+            {% include 'readcharges/readcharge_info.html' %} 
+            <h5>Customer Copy</h5>
+            <footer>
+            <p class="pull-left">&copy; Woohoow, Inc. 2013</p>
+            <p class="pull-right"></p>
+            </footer>          
+        </div> <!-- end row-fluid -->
+        </div>
+        </td>
+        
+        <td style="padding:10px;">
+<!--------- Billing Statement Reports -->
+        <div class="box box-content">
+        <span class="span6">
+        <h2>Felizana Water System</h2>
+        <h5>FelizAna Estate Subd., Brgy. Pasong Buaya, Imus, Cavite<br/>
+          Tel No. (046) 484-4268</h5>
+        <div class="row-fluid">
+        {% include 'accounts/account_info.html' %}
+        </div> <!-- end row-fluid -->
+        </span>
+        <span class="span6">
+          <h3 align="right"> TRN # :     {{bill_detail.tracking_number}}</h3>
+        </span>
+        
+        <div class="row-fluid">          
+            <h3>Latest Bill Details</h3>
+            {% include 'bills/bill_info.html' %}
+            
+            <div>
+              <h3>Current Charge Details</h3>
+            </div>
+              
+            {% include 'readcharges/readcharge_info.html' %} 
+            <h5>Office Copy</h5>
+            <footer>
+            <p class="pull-left">&copy; Woohoow, Inc. 2013</p>
+            <p class="pull-right"></p>
+            </footer>          
+        </div> <!-- end row-fluid -->
+        </div>
+        </td>
+
+        </tr></table>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock footer %}

@@ -1,0 +1,19 @@
+dropdb wbs -h localhost;createdb wbs -h localhost --owner wbs;python manage.py syncdb
+
+python manage.py dataloader --rate core/fixtures/rate.csv;python manage.py dataloader --accounttype core/fixtures/accounttype.csv;python manage.py dataloader --ratecharge core/fixtures/ratecharge.csv;python manage.py dataloader --billingschedule core/fixtures/billingschedule.csv; python manage.py dataloader --migrate  core/fixtures/felizana_customer_info_2013-09.csv
+
+python manage.py shell_plus
+
+from datetime import date, time
+bs = BillingSchedule.objects.get(start_date=date(2013, 8, 11), end_date=date(2013, 9, 10))
+bs.generate_bill()
+acc1 = Account.objects.all()[0]
+p1 = Payment(account=acc1,amount=5919,payment_date=date(2013,9,15))
+p1.save()
+pp = PostedPayment(payment=p1)
+pp.save()
+
+# upload meter read for 10/10
+
+bs2 = BillingSchedule.objects.get(start_date=date(2013, 9, 11), end_date=date(2013, 10, 10))
+bs2.generate_bill()

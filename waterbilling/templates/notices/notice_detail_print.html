@@ -1,0 +1,45 @@
+{% extends "bills/base_bills.html" %}
+{% load humanize %}
+
+{% block topbar %}
+{% endblock topbar %}
+
+{% block leftmenu %}
+{% endblock leftmenu %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row-fluid">
+        <div class="span6">
+
+        <h2>FelizAna Estate Subdivision</h2>
+        <h5>Pasong Buaya, Imus, Cavite<br/>
+          Tel No. (046) 484-4268</h5>
+        <h3><strong>DISCONNECTION NOTICE</strong></h3>
+        <br/>
+        <p></p>
+        <p>{{notice.notice_date | date:"F j, Y"}}<br/><br/>
+        {{account.customer}}<br/><br/>
+        {{account.address}}<br/><br/></p>
+
+        <p>We would like to inform that you have unpaid amount with us with regards to your water bill amounting to <strong>PHP {{notice.amount}} </strong> for the supply of water that you consumed.</p><br/>
+
+        <p>We request that you settle this account at the FelizAna Technical Office on or before <strong>{{notice.due_date| date:"M. j, Y"}}</strong>.  Otherwise, we shall be constrained, much to our regret, to disconnect your water service without any further notice. A reconnection fee of <strong>PHP {{notice.reconnection_fee}}</strong> is required for disconnected account prior to reconnection.</p><br/>
+
+        <p>If payment has been made, please disregard this notice and accept our thanks.</p>
+        <p>&nbsp;</p>
+        <p>Sincerely,<br/><br/><br/>
+          <strong>THE MANAGEMENT</strong</p>
+        
+
+        </div>
+</div> <!-- end row-fluid -->
+
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock footer %}

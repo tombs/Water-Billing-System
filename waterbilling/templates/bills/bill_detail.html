@@ -1,0 +1,58 @@
+{% extends "bills/base_bills.html" %}
+{% load humanize %}
+
+{% block content %}
+<!--------- Billing Statement Reports -->
+    <div class="row-fluid">
+        <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2><i class="icon icon-orange icon-xls"></i> Billing Statement</h2>
+        </div>
+        <div class="box box-content">
+          <span class="span6">
+        <h2>Felizana Water System</h2>
+        <h5>FelizAna Estate Subd., Brgy. Pasong Buaya, Imus, Cavite<br/>
+          Tel No. (046) 484-4268</h5>
+        <div class="row-fluid">
+        {% include 'accounts/account_info.html' %}
+        </div> <!-- end row-fluid -->
+        </span>
+        <span class="span6">
+          <h3 align="right"> TRN # :     {{bill_detail.tracking_number}}</h3>
+        </span>
+        <div class="row-fluid">
+          <div class="span12">
+            <span class="span6">
+              <h3>Latest Bill Details</h3>
+              {% include 'bills/bill_info.html' %}
+            </span>
+
+            <span class="span6">
+              <div class="box-header well" data-original-title>
+              <h3>Current Charge Details</h3>
+              </div>
+              <div class="box-content">
+                {% include 'readcharges/readcharge_info.html' %}
+              </div>
+              <div class="box-content">
+                <table class="table table-condensed">
+                <tr><td>Total Posted Payments This Period </td><td>{{ total_posted_payments }}</td></tr>
+                <tr><td>Total Adjustments This Period</td><td>{{ total_adjustments}}</td></tr>
+                </table>
+              </div>
+            </span>
+
+
+          </div>
+        </div> <!-- end row-fluid -->
+
+        </div>
+      </div>
+    </div> <!-- end row-fluid -->
+
+
+  <div class="pull-right">
+    <a class="btn btn-large btn-inverse" href="{{ request.path}}pdf"><i class="icon icon-white icon-save"></i> PDF
+    </a>
+  </div>
+{% endblock %}

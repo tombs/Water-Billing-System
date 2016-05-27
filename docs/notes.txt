@@ -1,0 +1,281 @@
+Setup
+#. Create and activate your working environment
+#. Execute  "pip install -r requirements/local.txt" this installs all dependecies for local (ie dev mode) development
+#. Create postgresql user and database -  "createuser wbs; createdb --owner wbs -h localhost wbs"
+#. Load Felizana sample data
+
+##### MIGRATION  START 
+
+# 1) Drop / Sync DB
+
+dropdb wbs -h localhost -U postgres;createdb wbs -h localhost --owner wbs -U postgres;python manage.py syncdb
+OR
+dropdb wbs -h localhost;createdb wbs -h localhost --owner wbs;python manage.py syncdb
+
+# 2) Load Rates, Rate Charges, Account Types, Billing Schedules, Business Date (with Active Period)
+
+python manage.py dataloader --rate core/fixtures/rate.csv;python manage.py dataloader --accounttype core/fixtures/accounttype.csv;python manage.py dataloader --ratecharge core/fixtures/ratecharge.csv;python manage.py dataloader --billingschedule core/fixtures/billingschedule.csv; python manage.py dataloader --business-date 2014-03-14 --active-period 2014-03-14;
+
+# 3) Load Migrated AEMI data with initial balances starting from Billing of February 18 (Post-Billing, January 11 to February 10 period)
+
+python manage.py dataloader --migrate core/fixtures/felizana_customer_info_2014-03.csv
+
+# 4) Load AEMI customer payments. Last payment is as of March 15, 2014 (Pre-Billing, February 11 to March 10 period)
+
+python manage.py dataloader --payment core/fixtures/paymentuploadfinal.xlsx
+
+# 5) Load Business Date for February 11 to March 10 Reading period (March 16 to April 15 Billing Period), Set that period as Active period
+
+python manage.py dataloader --business-date 2014-03-16 --active-period 2014-03-16 
+
+# 6) Upload MeterReads (Reading Period:  February 11 to March 10, Billing Period, March 16 to April 15)
+
+python manage.py dataloader --meterread core/fixtures/meterreaduploadfinal.xlsx
+
+# 7) Generate bills (Billing, February 11 to March 10 Reading period)
+
+python manage.py generate --type bill --business-date 2014-03-16 --create --username admin --password password
+
+# 8) Generate compiled Bills PDF, for download at Bills Page
+
+python manage.py generate --type bill --business-date 2014-03-16 --file-prefix BILL --pdf --username admin --password password
+
+
+# 9) Set current date and business period
+
+python manage.py dataloader --business-date 2014-03-31 --active-period 2014-03-31
+
+
+# 10) Generate Notices (Billing, February 11 to March 10 Reading period)
+
+python manage.py generate --type notice --business-date 2014-03-31 --file-prefix NOTICE --create
+
+# 11)  Generate compiled Notices PDF, for download at Notices Page
+
+python manage.py generate --type notice --business-date 2014-03-31 --file-prefix NOTICE --pdf --username admin --password password
+
+# 12) Set current date and business period
+
+python manage.py dataloader --business-date now --active-period now 
+
+##### MIGRATION  END
+
+# To generate a single bill after performing --> python manage.py dataloader --migrate core/fixtures/felizana_customer_info_2014-02.csv
+python manage.py shell
+
+
+from core.models import BillingSchedule, Bill, Account, FinancialTransaction, MeterRead, Payment, PostedPayment, Adjustment, Penalty, Customer
+from datetime import date, time
+bs = BillingSchedule.objects.get(start_date=date(2014, 2, 16), end_date=date(2013, 3, 15))
+account = Account.objects.get(pk=4)
+
+
+
+#. python manage.py runserver
+#. access admin via browser http://localhost:8000/
+
+
+generating ER diagram of the model
+python manage.py graph_models core -a -g -o ../docs/schema.pdf
+
+Generating pdfs (note: important to see installation notes below for wkhtmltopdf to work properly)
+
+First collect static files
+python manage.py collectstatic
+
+Bill and Notices (see core/management/commands/generate.py)
+
+Bills
+python manage.py generate --type bill --business-date 2013-09-10 --file-prefix BILL --pdf
+
+Notices
+python manage.py generate --type notice --business-date 2013-09-10 --file-prefix NOTICE --pdf
+
+
+
+Proof of concept (manually use wkhtmltopdf)
+wkhtmltopdf --zoom 0.7 -O Landscape --lowquality --grayscale -s Folio http://192.168.254.101:8000/bills/2/print/ bill1.pdf
+
+In case the above does not work, try doing the following instead to check if wkhtmltopdf module is workin:
+
+wkhtmltopdf http://www.google.com output.pdf
+
+wkhtml Notes
+** 11.0_rc1 is not exiting properly in OSX Lion, thus forced to use 0.9.9 **
+
+** use the static 386 **
+Download https://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.9.9-OS-X.i368
+cp wkhtmltopdf-0.9.9-OS-X.i368 /usr/local/bin/wkhtmltopdf
+chmod +x /usr/local/bin/wkhtmltopdf
+
+brew versions wkhtmltopdf
+0.11.0_rc1 git checkout a354451 /usr/local/Library/Formula/wkhtmltopdf.rb
+0.9.9    git checkout 6e2d550 /usr/local/Library/Formula/wkhtmltopdf.rb
+cd /usr/local/
+git checkout 6e2d550 /usr/local/Library/Formula/wkhtmltopdf.rb
+brew install wkhtmltopdf 
+
+
+** For Ubuntu Server **
+Use the following version of wkhtmltopdf. --> wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz
+This is tested and works, but we had to remove the dpi=25 option. Commands are below
+
+
+*** OUTDATED!!! wget https://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz
+wget http://download.gna.org/wkhtmltopdf/obsolete/linux/wkhtmltopdf-0.10.0_rc2-static-amd64.tar.bz2
+tar -xf wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz
+sudo mv wkhtmltopdf-amd64 /usr/local/bin/wkhtmltopdf
+/usr/local/bin/wkhtmltopdf http://www.google.com output.pdf
+(last line to test)
+
+
+Notes on using datatables (django-eztables)
+1. I can not make object based JSON work only Arrays (see http://django-eztables.readthedocs.org/en/latest/serverside.html)
+2. Define what will be exposed to datatables via fields in the DataTableView, which in turn will return json data
+
+class AccountDatatablesView(DatatablesView):
+    queryset = FinancialTransaction.objects.filter(id__in=Account.objects.annotate(last_transaction_id=Max('financialtransaction')).values_list('last_transaction_id'))
+    fields = (
+        'account__id',
+        '{account__customer__last_name}, {account__customer__first_name}', 
+        'account__address__address1',
+        'account__account_type__description',
+        '{account__meter__meter_uid}',
+        'account__status',
+        'account__remarks',
+        'balance'
+        )
+
+3. For the frontend display. Below is a sample datatable script
+
+{% block jsfooter%}
+	<script type="text/javascript">
+		$(function(){
+    $('#meterread-list-table').dataTable({
+        "bPaginate": true,
+        "sPaginationType": "bootstrap",
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": Django.url('meterread_list_datatable'),
+        "aoColumnDefs": [
+	        {
+	            "aTargets": [ 4,5,6 ],
+	            "mRender": function (data, type, full) {
+	            	//console.log("data", data, type, full);
+	            	return '<span class="pull-right">' + $.number( data , 2) + '</span>'
+	            }
+	        }
+    	]
+    	});
+	});
+	// $('#account-list-table').dataTable().fnReloadAjax( Django.url('account_list_datatable') );
+	</script>	
+{% endblock %}
+
+
+ - use aoColumnDefs: [...] to further process the arrays. 
+ - aTargets is where you define what particular column to manipulate
+ - mRender is use for further processing of the data . 
+ - To access the other data in mRender use full[index] such as
+
+ "mRender": function (data, type, full) {
+		        			return '<a href="/accounts/' + full[0] + '">' + full[1] + '</a>';
+				    	}
+
+
+
+TODO: Create small Unit test data
+
+drop and recreate db
+dropdb wbs -h localhost;createdb wbs -h localhost --owner wbs;python manage.py syncdb
+
+load sample data
+python manage.py dataloader --customer core/fixtures/customer.csv 
+python manage.py dataloader --address core/fixtures/address.csv 
+python manage.py dataloader --rate core/fixtures/rate.csv 
+python manage.py dataloader --accounttype core/fixtures/accounttype.csv
+python manage.py dataloader --meter core/fixtures/meter.csv 
+python manage.py dataloader --ratecharge core/fixtures/ratecharge.csv 
+python manage.py dataloader --billingschedule core/fixtures/billingschedule.csv
+python manage.py dataloader --account core/fixtures/account.csv
+python manage.py dataloader --meterread core/fixtures/meterread.csv
+
+sample bill and payment
+from core.models import BillingSchedule, Bill, Account, FinancialTransaction, MeterRead, Payment, PostedPayment, Adjustment, Penalty
+from datetime import date
+from decimal import Decimal
+a = Account.objects.all()[0]
+bs = BillingSchedule.objects.filter(start_date__lte=date(2013, 01, 15), end_date__gte=date(2013,01,15))[0]
+res = [i for i in a.meter.meterread_set.all() ]
+mr = res[0]
+bill = Bill(account=a,billing_schedule=bs, meter_read=mr)
+bill.save()
+bill.amount_due
+
+payment = Payment(amount=Decimal('102.1'), account=a)
+payment.save()
+
+bs = BillingSchedule.objects.filter(start_date__lte=date(2013, 02, 11), end_date__gte=date(2013,02,11))[0]
+mr = res[1]
+bill = Bill(account=a,billing_schedule=bs, meter_read=mr)
+bill.save()
+bill.amount_due
+
+payment = Payment(amount=Decimal('200.0'), account=a)
+payment.save()
+
+pp = PostedPayment(payment=payment)
+pp.save()
+
+payment = Payment(amount=Decimal('2.0'), account=a)
+payment.save()
+
+a1 = Account.objects.all()[1]
+bs1 = BillingSchedule.objects.filter(start_date__lte=date(2013, 01, 15), end_date__gte=date(2013,01,15))[0]
+res1 = [i for i in a1.meter.meterread_set.all() ]
+mr1 = res1[0]
+bill1 = Bill(account=a1,billing_schedule=bs1, meter_read=mr1)
+bill1.save()
+bill1.amount_due
+
+bs1 = BillingSchedule.objects.filter(start_date__lte=date(2013, 02, 11), end_date__gte=date(2013,02,11))[0]
+mr1 = res1[1]
+bill1 = Bill(account=a1,billing_schedule=bs1, meter_read=mr1)
+bill1.save()
+bill1.amount_due
+
+from datetime import date
+a1 = Account.objects.all()[1]
+bs1 = BillingSchedule.objects.filter(start_date__lte=date(2013, 10, 11), end_date__gte=date(2013,11,10))[0]
+nd = date.today()
+dd = date(2013,12,1)
+rf = 2000
+am = 500
+nn = Notice(account = a1, billing_schedule=bs1, notice_date = nd, due_date = dd, reconnection_fee = rf, amount=am)
+nn.save()
+
+# data for reconnect page, set account status to disconnected
+acc1 = Account.objects.all()[0]
+acc1.status = 'disconnected'
+acc1.save()
+
+
+
+Adding Roles
+from payments.models import PostedPayment
+g = Group(name='Manager')
+g.save()
+then add via admin the add_postedpayment permission to Manager group
+
+
+
+# Django Test Setup
+Run the following.
+> python manage.py test
+
+# This assumes you are using Postgres. If you have errors with database creation, you can force the situation
+> python manage.py syncdb 
+> psql -U postgres -h localhost
+> CREATE DATABASE test_wbs WITH TEMPLATE wbs OWNER wbs;
+
+#
