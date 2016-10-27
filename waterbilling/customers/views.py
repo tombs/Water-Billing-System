@@ -99,11 +99,62 @@ class CustomerAddView(DetailView):
             customer, created = Customer.objects.get_or_create(last_name = last_name, first_name = first_name, middle_name = middle_name,email_address = email_address, phone1 = phone1, phone2 = phone2, phone3 = phone3)
             print "customer: ", customer, created
 
-            data = {'status': 200, 'data': meter.status, 'msg': 'Added new customer with ID: ' + str(customer.customer_uid)}
+            data = {'status': 200, 'data': customer.id, 'msg': 'Added new customer with ID: ' + str(customer.id)}
             status = 200
         except Exception, e:
             print "e: ", str(e)
-            data = {'status': 200, 'data': meter.status, 'msg': 'Unable to add customer with : ' + request.get('last_name') }
+            data = {'status': 200, 'data': request.get('last_name'), 'msg': 'Unable to add customer with : ' + request.get('last_name') }
+            status = 400
+
+        return self.render_to_json_response(data, status=status)
+
+@login_required
+@ajax_view
+class CustomerUpdateView(DetailView):
+
+    model = Customer
+
+    def render_to_json_response(self, context, **response_kwargs):
+        data = json.dumps(context)
+        response_kwargs['content_type'] = 'application/json'
+        return HttpResponse(data, **response_kwargs)
+
+    def post(self, request, *args, **kwargs):
+        print "This POST", request.POST
+        request = request.POST
+        customer = self.model.objects.get(pk = request.get('id'))
+
+        try:
+            if request.get('last_name'):
+                customer.last_name = request.get('last_name')
+
+            if request.get('first_name'):
+                customer.first_name = request.get('first_name')
+
+            if request.get('middle_name'):
+                customer.middle_name = request.get('middle_name')
+
+            if request.get('email_address'):
+                customer.email_address = request.get('email_address')
+
+            if request.get('phone1'):
+                customer.phone1 = request.get('phone1')
+
+            if request.get('phone2'):
+                customer.phone2 = request.get('phone2')
+
+            if request.get('phone3'):
+                customer.phone3 = request.get('phone3')
+
+
+
+
+
+            customer.save()
+            data = {'status': 200, 'data': customer.id, 'msg': 'Updated Customer with ID: ' + str(customer.id)}
+            status = 200
+        except Exception, e:
+            data = {'status': 200, 'data': request.get('id') , 'msg': 'Unable to update Customer with ID: ' + request.get('id') }
             status = 400
 
         return self.render_to_json_response(data, status=status)
