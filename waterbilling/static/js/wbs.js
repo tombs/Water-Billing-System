@@ -32,6 +32,17 @@ $(document).ready(function(){
 
 	});
 
+
+        $('.btn-addcustomer').click(function(e){
+                e.preventDefault();
+                $('.control-group').removeClass('error');
+                $('.help_text').remove();
+                //$('.controls').children().val('');
+                $('#myAddCustomerModal').modal('show');
+                $('#alert_template').hide();
+
+        });
+
 	$('.btn-payment').click(function(e){
 		e.preventDefault();
 		$('.control-group').removeClass('error');
@@ -331,6 +342,67 @@ $('#btnConfirmCustomerUpdate').click(function(e){
 		    
 		  });
 	});
+
+
+
+$('#btnConfirmCustomerAdd').click(function(e){
+
+                e.preventDefault();
+                console.log("adding new Customer");
+                $('.help_text').remove();
+                //console.log("need to get acct number" + $(this).textContent);
+                var now = new Date();
+                console.log("now is "+ now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear());
+                var nowformat = now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear()
+
+                request = $.ajax({
+                        headers: {"X-CSRFToken":$.cookie('csrftoken')},
+                    type: 'POST',
+                    //contentType: "application/json; charset=utf-8", #commented since django empty POST data
+                    url: '/customers/addnewcustomer/',
+                    data: {'last_name': $('#last-name1').val(),
+                           'first_name': $('#first-name1').val(),
+                           'middle_name': $('#middle-name1').val(),
+                           'email_address': $('#email-address1').val(),
+                           'phone1': $('#phone11').val(),
+                           'phone2': $('#phone21').val(),
+                           'phone3': $('#phone31').val(),
+                                },
+                    dataType: "json",
+                    success: function (data) {
+                                console.log("Got back: " + JSON.stringify(data));
+                                createAlertMessage('Add Customer','success','',1500);
+
+                                $('#myAddCustomerModal').modal('hide');
+                                window.setTimeout('location.reload()', 5000);
+                    },
+                    error: function(jqXHR, textStatus) {
+                        //alert( "Request failed: " + textStatus );
+                        console.log("Got back: " + textStatus);
+                        createAlertMessage('Add Customer','fail','',1500);
+                        $('.control-group').removeClass('error');
+                        console.log("jqxhr response text",jqXHR.responseText);
+                        /*var p = JSON.parse(request.responseText)
+                                for (var key in p) {
+                                        if (p.hasOwnProperty(key)) {
+                                                console.log('key and p key', key, p[key]);
+                                                var myfield = 'id_' + key;
+                                                console.log('myfield,', myfield);
+                                                //$('.' + myfield).addClass(textStatus);
+                                                //$('#' + myfield).addClass('alert alert-error');
+                                                $('#myAdjustmentModal').find('#' + myfield).parent().parent().addClass(textStatus);
+                                                $('#myAdjustmentModal').find('#' + myfield).after('<span class="help_text error"> '+p[key]+'</span>');
+                                        }
+                                }*/
+                    },
+
+                  });
+        });
+
+
+
+
+
 $('#btnAddMeter').click(function(e){
 
 		e.preventDefault();
