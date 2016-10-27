@@ -306,13 +306,13 @@ $('#btnConfirmCustomerUpdate').click(function(e){
 				console.log("Got back: " + JSON.stringify(data));
 				createAlertMessage('Update Customer','success','',1500);
 				
-				$('#myUpdateMeterModal').modal('hide');
+				$('#myUpdateCustomerModal').modal('hide');
 				window.setTimeout('location.reload()', 5000);
 		    },
 		    error: function(jqXHR, textStatus) {
 		      	//alert( "Request failed: " + textStatus );
 		      	console.log("Got back: " + textStatus);
-		      	createAlertMessage('Update Meter Read','fail','',1500);
+		      	createAlertMessage('Update Customer','fail','',1500);
 		      	$('.control-group').removeClass('error');
 		      	console.log("jqxhr response text",jqXHR.responseText);
 		      	/*var p = JSON.parse(request.responseText)
