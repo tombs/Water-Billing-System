@@ -21,7 +21,7 @@
 	    </div>
 	    </div>
 	   	<div class="span6">
-	   		<span class="pull-right"><a class="btn btn-primary" href="/customers/add/"><i class="icon-white icon-male"></i> Add Customer  </a></span>
+	   		<span class="pull-right"><a class="btn btn-primary btn-addcustomer"><i class="icon-white icon-male"></i> Add Customer  </a></span>
 	   	</div>
 	</div>
 	<div class="row-fluid sortable">
@@ -55,6 +55,49 @@
 
 				</div>
 	</div>
+
+
+        <div class="modal hide fade" id="myAddCustomerModal">
+      <form id="addCustomerForm" method="POST">
+                        <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h3>Add Customer</span></h3>
+                        </div>
+
+      {# FIXME: Redo this via django form #}
+                        <div class="modal-body">
+            {% csrf_token %}
+
+                        <label>First Name</label>
+                        <input type="text" id="first-name1">
+                        <label>Middle Name</label>
+                        <input type="text" id="middle-name1">
+                        <label>Last Name</label>
+                        <input type="text" id="last-name1">
+                        <label>Email Address</label>
+                        <input type="text" id="email-address1">
+                        <label>Phone 1</label>
+                        <input type="text" id="phone11">
+                        <label>Phone 2</label>
+                        <input type="text" id="phone21">
+                        <label>Phone 3</label>
+                        <input type="text" id="phone31">
+
+
+
+                <input id="id_customer" name="customer" type="hidden"/>
+
+                </div>
+
+                        <div class="modal-footer">
+                                <button class="btn btn-large btn-warning" data-dismiss="modal"><i class="icon icon-white icon-cross"></i> Cancel
+                                        </button>
+                                <button id="btnConfirmCustomerAdd" class="btn btn-large btn-success"><i class="icon icon-white icon-link"></i> Add Customer
+                        </button>
+                        </div>
+      </form>
+                </div> <!-- close myPaymentModal -->
+
 
 	<div class="modal hide fade" id="myUpdateCustomerModal">
       <form id="updateCustomerForm" method="POST">
